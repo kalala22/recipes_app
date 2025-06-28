@@ -3,6 +3,10 @@ const boxTitle = document.getElementsByClassName("boxTitle");
 const cards = document.getElementsByClassName("cards");
 const box_card = document.getElementsByClassName("box_card");
 const boxIngredient = document.getElementsByClassName("boxDescript");
+const modal = document.getElementById("myModal");
+const divModalContent = document.getElementsByClassName("modal-content");
+//const btnModal = document.getElementById("openModal");
+const span = document.querySelector(".close");
 
 async function getRecette() {
   // const apiKey = "5daa2e86e5614ac3aee017fec59d1af2"; // remplace par ta vraie clé
@@ -27,6 +31,9 @@ async function recuperationData() {
     const details = data.recipes[i];
 
     const card = document.createElement("div");
+    const modalContentElement = document.createElement("div");
+
+    modalContentElement.className = "modal_element_content";
     card.classList = "box_card";
 
     card.innerHTML = `<div class="boxImage">
@@ -38,31 +45,29 @@ async function recuperationData() {
         <div class="btn_detail">
         <span>See Full Details</span>
     </div>`;
+    modalContentElement.innerHTML = `
+     <img src="${details.image}">
+    `;
     const btn = card.querySelector(".btn_detail");
 
+    cards[0].appendChild(card);
+    divModalContent[0].appendChild(modalContentElement);
+
     btn.addEventListener("click", () => {
-      console.log(`Détails de la recette : ${details.name}`);
+      modal.style.display = "block";
     });
 
-    cards[0].appendChild(card);
+    span.addEventListener("click", () => {
+      modal.style.display = "none";
+    });
+
+    window.addEventListener("click", (event) => {
+      if (event.target === modal) {
+        modal.style.display = "none";
+      }
+    });
   }
-  return data;
 }
 
 getRecette();
 recuperationData();
-
-// const image = document.createElement("img");
-// const nameRecipe = document.createElement("p");
-// const listIngredient = document.createElement("p");
-
-// image.src = data.recipes[i].image;
-// nameRecipe.textContent = data.recipes[i].name;
-// listIngredient.textContent = data.recipes[i].ingredients;
-
-// boxImage[i].appendChild(image);
-// boxTitle[i].appendChild(nameRecipe);
-// boxIngredient[i].appendChild(listIngredient);
-
-//  <h2>Ingredients</h2>
-//               <p>${details.ingredients}</p>
