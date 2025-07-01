@@ -11,8 +11,9 @@
 
 const card = document.getElementsByClassName("card");
 const carousel = document.getElementsByClassName("carousel");
-const modalBox = document.getElementsByClassName("modal-box");
-
+//const modalBox = document.getElementsByClassName("modal-box");
+const modal = document.getElementById("my_modal_1");
+const modatlContent = document.getElementsByClassName("modal");
 async function getRecette() {
   // const apiKey = "5daa2e86e5614ac3aee017fec59d1af2"; // remplace par ta vraie clé
   const dataRequest = `https://dummyjson.com/recipes`;
@@ -66,8 +67,8 @@ async function recuperationData() {
 
     btnShowModal.addEventListener("click", () => {
       // Injecte les données dans le modal
-      modalBox.innerHTML = `
-      <dialog id="my_modal_1" class="modal">
+      modatlContent.innerHTML = `
+      
         <div class="modal-box">
           <h3 class="text-lg font-bold">Hello!</h3>
           <p class="py-4">Press ESC key or click the button below to close</p>
@@ -78,9 +79,11 @@ async function recuperationData() {
             </form>
           </div>
         </div>
-      </dialog>
+      
       `;
+
       modal.style.display = "block";
+      //console.log(modalBox);
     });
 
     carousel[0].appendChild(carouselItem);
